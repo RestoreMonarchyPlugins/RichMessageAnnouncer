@@ -1,9 +1,9 @@
 ﻿using Rocket.API;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Zombiesia.CustomMessageAnnouncer.Models;
+using RestoreMonarchy.CustomMessageAnnouncer.Models;
 
-namespace Zombiesia.CustomMessageAnnouncer
+namespace RestoreMonarchy.CustomMessageAnnouncer
 {
     public class CustomMessageAnnouncerConfiguration : IRocketPluginConfiguration
     {

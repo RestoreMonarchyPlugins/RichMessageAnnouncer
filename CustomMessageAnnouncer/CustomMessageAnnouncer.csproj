@@ -7,7 +7,7 @@
     <ProjectGuid>{70E97B52-EE75-4831-A4D0-73EDFEF5FF50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomMessageAnnouncer</RootNamespace>
+    <RootNamespace>RestoreMonarchy.CustomMessageAnnouncer</RootNamespace>
     <AssemblyName>CustomMessageAnnouncer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

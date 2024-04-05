@@ -1,13 +1,9 @@
 ﻿using Rocket.API;
 using Rocket.Unturned.Chat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rocket.Unturned.Player;
+using System.Collections.Generic;
 
-namespace Zombiesia.CustomMessageAnnouncer.Commands
+namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
 {
     public class RocketWebsiteCommand : IRocketCommand
     {

@@ -1,4 +1,4 @@
-﻿namespace Zombiesia.CustomMessageAnnouncer.Models
+﻿namespace RestoreMonarchy.CustomMessageAnnouncer.Models
 {
     public class TextCommand
     {

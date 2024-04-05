@@ -4,7 +4,7 @@ using Rocket.Unturned.Chat;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Zombiesia.CustomMessageAnnouncer.Commands
+namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
 {
     public class CommandsCommand : IRocketCommand
     {

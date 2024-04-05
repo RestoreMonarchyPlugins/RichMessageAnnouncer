@@ -1,19 +1,17 @@
-﻿using Zombiesia.CustomMessageAnnouncer.Commands;
-using Zombiesia.CustomMessageAnnouncer.Models;
+﻿using RestoreMonarchy.CustomMessageAnnouncer.Commands;
 using Rocket.API.Collections;
 using Rocket.Core;
 using Rocket.Core.Plugins;
 using Rocket.Core.Utils;
+using Rocket.Unturned;
 using Rocket.Unturned.Chat;
+using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System.Timers;
 using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
-using Rocket.Unturned;
-using Rocket.Unturned.Player;
-using System;
 
-namespace Zombiesia.CustomMessageAnnouncer
+namespace RestoreMonarchy.CustomMessageAnnouncer
 {
     public class CustomMessageAnnouncerPlugin : RocketPlugin<CustomMessageAnnouncerConfiguration>
     {
