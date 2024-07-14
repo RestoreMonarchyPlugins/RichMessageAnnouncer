@@ -24,8 +24,8 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             MessageInterval = 180;
             Messages = new List<Message>()
             {
-                new Message("You are playing on RestoreMonarchy!", "https://i.imgur.com/pKphzxH.png", "yellow"),
-                new Message("Visit RestoreMonarchy.com", "https://i.imgur.com/pKphzxH.png", "yellow")
+                new Message("Thank You for playing on our server!", "https://i.imgur.com/pKphzxH.png", "yellow"),
+                new Message("Check out RestoreMonarchy.com", "https://i.imgur.com/pKphzxH.png", "yellow")
             };
             TextCommands = new List<TextCommand>()
             {
@@ -36,7 +36,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer
                 new WebsiteCommand("web", "Shows web url", "https://restoremonarchy.com", "Restore Monarchy Website")
             };
             EnableWelcomeMessage = true;
-            WelcomeMessage = new Message("Welcome to RestoreMonarchy!", "https://i.imgur.com/pKphzxH.png", "yellow");
+            WelcomeMessage = new Message("Welcome to the server!", "https://i.imgur.com/pKphzxH.png", "yellow");
         }
     }
 

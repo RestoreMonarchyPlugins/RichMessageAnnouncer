@@ -2,7 +2,7 @@
 
 
 ## Commands
-- **/commands** - Displays a list of permissions (works the same as `/p`)
+- **/commands** - Display a list of permissions (works the same as `/p`)
 
 ## Configuration
 ```xml
@@ -11,8 +11,8 @@
   <MessageColor>yellow</MessageColor>
   <MessageInterval>180</MessageInterval>
   <Messages>
-    <Message Text="You are playing on RestoreMonarchy!" IconUrl="https://i.imgur.com/pKphzxH.png" Color="yellow" />
-    <Message Text="Visit RestoreMonarchy.com" IconUrl="https://i.imgur.com/pKphzxH.png" Color="yellow" />
+    <Message Text="Thank You for playing on our server!" IconUrl="https://i.imgur.com/pKphzxH.png" Color="yellow" />
+    <Message Text="Check out RestoreMonarchy.com!" IconUrl="https://i.imgur.com/pKphzxH.png" Color="yellow" />
   </Messages>
   <TextCommands>
     <TextCommand>
