@@ -1,5 +1,5 @@
 # Rich Message Announcer
-Message Announcer, text and web commands with rich text and icons.
+Message announcer, text and web commands with rich text and icons.
 
 ## Commands
 - **/commands** - Display a list of permissions (works the same as `/p`)
