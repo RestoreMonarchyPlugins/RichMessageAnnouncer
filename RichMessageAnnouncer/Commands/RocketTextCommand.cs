@@ -1,15 +1,15 @@
-﻿using RestoreMonarchy.CustomMessageAnnouncer.Models;
+﻿using RestoreMonarchy.RichMessageAnnouncer.Models;
 using Rocket.API;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System.Collections.Generic;
 
-namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
+namespace RestoreMonarchy.RichMessageAnnouncer.Commands
 {
     public class RocketTextCommand : IRocketCommand
     {
-        private CustomMessageAnnouncerPlugin pluginInstance => CustomMessageAnnouncerPlugin.Instance;
+        private RichMessageAnnouncerPlugin pluginInstance => RichMessageAnnouncerPlugin.Instance;
 
         public RocketTextCommand(TextCommand textCommand)
         {

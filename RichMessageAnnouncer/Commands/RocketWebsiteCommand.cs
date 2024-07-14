@@ -3,12 +3,13 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
 
-namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
+namespace RestoreMonarchy.RichMessageAnnouncer.Commands
 {
     public class RocketWebsiteCommand : IRocketCommand
     {
         private readonly string url;
         private readonly string desc;
+
         public RocketWebsiteCommand(string name, string help, string url, string desc)
         {
             Name = name;
@@ -16,6 +17,7 @@ namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
             this.url = url;
             this.desc = desc;
         }
+        
         public AllowedCaller AllowedCaller => AllowedCaller.Both;
 
         public string Name { get; set; }

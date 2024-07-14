@@ -1,4 +1,4 @@
-﻿using RestoreMonarchy.CustomMessageAnnouncer.Commands;
+﻿using RestoreMonarchy.RichMessageAnnouncer.Commands;
 using Rocket.API.Collections;
 using Rocket.Core;
 using Rocket.Core.Plugins;
@@ -11,14 +11,14 @@ using System.Timers;
 using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
 
-namespace RestoreMonarchy.CustomMessageAnnouncer
+namespace RestoreMonarchy.RichMessageAnnouncer
 {
-    public class CustomMessageAnnouncerPlugin : RocketPlugin<CustomMessageAnnouncerConfiguration>
+    public class RichMessageAnnouncerPlugin : RocketPlugin<RichMessageAnnouncerConfiguration>
     {
         private Timer timer;
         private int index = 0;
 
-        public static CustomMessageAnnouncerPlugin Instance { get; private set; }
+        public static RichMessageAnnouncerPlugin Instance { get; private set; }
 
         protected override void Load()
         {

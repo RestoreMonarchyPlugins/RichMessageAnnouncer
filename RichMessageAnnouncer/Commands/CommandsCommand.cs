@@ -4,11 +4,11 @@ using Rocket.Unturned.Chat;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestoreMonarchy.CustomMessageAnnouncer.Commands
+namespace RestoreMonarchy.RichMessageAnnouncer.Commands
 {
     public class CommandsCommand : IRocketCommand
     {
-        private CustomMessageAnnouncerPlugin pluginInstance => CustomMessageAnnouncerPlugin.Instance;
+        private RichMessageAnnouncerPlugin pluginInstance => RichMessageAnnouncerPlugin.Instance;
         public AllowedCaller AllowedCaller => AllowedCaller.Both;
         public string Name => "commands";
         public string Help => "Shows all your available commands";

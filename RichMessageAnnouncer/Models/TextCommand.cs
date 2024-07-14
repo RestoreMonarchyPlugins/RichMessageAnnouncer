@@ -1,4 +1,4 @@
-﻿namespace RestoreMonarchy.CustomMessageAnnouncer.Models
+﻿namespace RestoreMonarchy.RichMessageAnnouncer.Models
 {
     public class TextCommand
     {

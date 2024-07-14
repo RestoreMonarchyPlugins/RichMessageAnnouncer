@@ -1,11 +1,11 @@
 ﻿using Rocket.API;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using RestoreMonarchy.CustomMessageAnnouncer.Models;
+using RestoreMonarchy.RichMessageAnnouncer.Models;
 
-namespace RestoreMonarchy.CustomMessageAnnouncer
+namespace RestoreMonarchy.RichMessageAnnouncer
 {
-    public class CustomMessageAnnouncerConfiguration : IRocketPluginConfiguration
+    public class RichMessageAnnouncerConfiguration : IRocketPluginConfiguration
     {
         public bool UseRich { get; set; }
         public string CommandsMessageColor { get; set; }
@@ -22,7 +22,7 @@ namespace RestoreMonarchy.CustomMessageAnnouncer
         public void LoadDefaults()
         {
             UseRich = false;
-            CommandsMessageColor = "orange";
+            CommandsMessageColor = "yellow";
             MessageInterval = 180;
             Messages = new List<Message>()
             {

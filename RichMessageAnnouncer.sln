@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomMessageAnnouncer", "CustomMessageAnnouncer\CustomMessageAnnouncer.csproj", "{70E97B52-EE75-4831-A4D0-73EDFEF5FF50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichMessageAnnouncer", "RichMessageAnnouncer\RichMessageAnnouncer.csproj", "{70E97B52-EE75-4831-A4D0-73EDFEF5FF50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
