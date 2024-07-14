@@ -7,8 +7,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer
 {
     public class RichMessageAnnouncerConfiguration : IRocketPluginConfiguration
     {
-        public bool UseRich { get; set; }
-        public string CommandsMessageColor { get; set; }
+        public string MessageColor { get; set; }
         public double MessageInterval { get; set; }
         [XmlArrayItem("Message")]
         public List<Message> Messages { get; set; }
@@ -21,24 +20,23 @@ namespace RestoreMonarchy.RichMessageAnnouncer
 
         public void LoadDefaults()
         {
-            UseRich = false;
-            CommandsMessageColor = "yellow";
+            MessageColor = "yellow";
             MessageInterval = 180;
             Messages = new List<Message>()
             {
-                new Message("You are playing on RestoreMonarchy!", "https://i.imgur.com/vWoACbH.png", "yellow"),
-                new Message("Visit RestoreMonarchy.com", "https://i.imgur.com/vWoACbH.png", "yellow")
+                new Message("You are playing on RestoreMonarchy!", "https://i.imgur.com/pKphzxH.png", "yellow"),
+                new Message("Visit RestoreMonarchy.com", "https://i.imgur.com/pKphzxH.png", "yellow")
             };
             TextCommands = new List<TextCommand>()
             {
-                new TextCommand("rules", "Shows rules", "orange", "There's no rules, just chill and have fun!", "https://i.imgur.com/vWoACbH.png")
+                new TextCommand("rules", "Shows rules", "orange", "There's no rules, just chill and have fun!", "https://i.imgur.com/pKphzxH.png")
             };
             WebsiteCommands = new List<WebsiteCommand>()
             {
-                new WebsiteCommand("web", "Shows web url", "https://servers.restoremonarchy.com", "Official Restore Monarchy Severs Website")
+                new WebsiteCommand("web", "Shows web url", "https://restoremonarchy.com", "Restore Monarchy Website")
             };
             EnableWelcomeMessage = true;
-            WelcomeMessage = new Message("Welcome to RestoreMonarchy!", "https://i.imgur.com/vWoACbH.png", "yellow");
+            WelcomeMessage = new Message("Welcome to RestoreMonarchy!", "https://i.imgur.com/pKphzxH.png", "yellow");
         }
     }
 

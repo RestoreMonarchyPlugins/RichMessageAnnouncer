@@ -4,6 +4,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System.Collections.Generic;
+using Rocket.Core.Logging;
 
 namespace RestoreMonarchy.RichMessageAnnouncer.Commands
 {
@@ -38,14 +39,15 @@ namespace RestoreMonarchy.RichMessageAnnouncer.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            if (pluginInstance.Configuration.Instance.UseRich && caller is UnturnedPlayer)
+            UnturnedPlayer player = (UnturnedPlayer)caller;
+            string richMessage = Message.Replace('{', '<').Replace('}', '>');
+            
+            if (player != null) 
             {
-                UnturnedPlayer player = (UnturnedPlayer)caller;
-                string richMessage = Message.Replace('{', '<').Replace('}', '>');
                 ChatManager.serverSendMessage(richMessage, MessageColor, null, player.SteamPlayer(), EChatMode.SAY, IconUrl, true);
-            } else
+            } else 
             {
-                UnturnedChat.Say(caller, Message, UnturnedChat.GetColorFromName(Color, UnityEngine.Color.green));
+                Logger.Log(richMessage);
             }
         }
     }

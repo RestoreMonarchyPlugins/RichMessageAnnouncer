@@ -20,7 +20,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer.Commands
         {
             var permissions = R.Permissions.GetPermissions(caller);
             UnturnedChat.Say(caller, pluginInstance.Translate("Commands", string.Join(", ", permissions.Select(x => x.Name))), 
-                UnturnedChat.GetColorFromName(pluginInstance.Configuration.Instance.CommandsMessageColor, UnityEngine.Color.green));
+                UnturnedChat.GetColorFromName(pluginInstance.Configuration.Instance.MessageColor, UnityEngine.Color.green));
         }
     }
 }

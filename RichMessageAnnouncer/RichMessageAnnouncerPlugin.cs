@@ -73,15 +73,8 @@ namespace RestoreMonarchy.RichMessageAnnouncer
                     return;
 
                 Color color = UnturnedChat.GetColorFromName(msg.Color, Color.green);
-
-                if (Configuration.Instance.UseRich)
-                {
-                    ChatManager.serverSendMessage(msg.Text.Replace('{', '<').Replace('}', '>'), color, null, null, EChatMode.SAY, msg.IconUrl, true);
-                }
-                else
-                {
-                    UnturnedChat.Say(msg.Text, color);
-                }
+                
+                ChatManager.serverSendMessage(msg.Text.Replace('{', '<').Replace('}', '>'), color, null, null, EChatMode.SAY, msg.IconUrl, true);
             });
             
             index++;
@@ -97,15 +90,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             Message msg = Configuration.Instance.WelcomeMessage;
             Color color = UnturnedChat.GetColorFromName(msg.Color, Color.green);
 
-
-            if (Configuration.Instance.UseRich)
-            {
-                ChatManager.serverSendMessage(msg.Text.Replace('{', '<').Replace('}', '>'), color, null, player.SteamPlayer(), EChatMode.SAY, msg.IconUrl, true);
-            }
-            else
-            {
-                UnturnedChat.Say(player, msg.Text, color);
-            }
+            ChatManager.serverSendMessage(msg.Text.Replace('{', '<').Replace('}', '>'), color, null, player.SteamPlayer(), EChatMode.SAY, msg.IconUrl, true);
         }
     }
 }
