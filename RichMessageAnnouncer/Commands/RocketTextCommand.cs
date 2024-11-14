@@ -19,8 +19,6 @@ namespace RestoreMonarchy.RichMessageAnnouncer.Commands
             Color = textCommand.Color;
             Message = textCommand.Message;
             IconUrl = textCommand.IconUrl;
-
-            MessageColor = UnturnedChat.GetColorFromName(Color, UnityEngine.Color.green);
         }
 
         public AllowedCaller AllowedCaller => AllowedCaller.Both;
@@ -31,24 +29,13 @@ namespace RestoreMonarchy.RichMessageAnnouncer.Commands
         public string Message { get; set; }
         public string IconUrl { get; set; }
 
-        public UnityEngine.Color MessageColor { get; set; }
-
         public string Syntax => "";
         public List<string> Aliases => new List<string>();
         public List<string> Permissions => new List<string>();
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            UnturnedPlayer player = (UnturnedPlayer)caller;
-            string richMessage = Message.Replace('{', '<').Replace('}', '>');
-            
-            if (player != null) 
-            {
-                ChatManager.serverSendMessage(richMessage, MessageColor, null, player.SteamPlayer(), EChatMode.SAY, IconUrl, true);
-            } else 
-            {
-                Logger.Log(richMessage);
-            }
+            pluginInstance.SendMessageToPlayer(caller, Message, null, IconUrl, Color);
         }
     }
 }

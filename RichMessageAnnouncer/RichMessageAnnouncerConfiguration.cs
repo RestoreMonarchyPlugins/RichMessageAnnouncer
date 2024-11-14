@@ -8,6 +8,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer
     public class RichMessageAnnouncerConfiguration : IRocketPluginConfiguration
     {
         public string MessageColor { get; set; }
+        public string MessageIconUrl { get; set; }
         public double MessageInterval { get; set; }
         [XmlArrayItem("Message")]
         public List<Message> Messages { get; set; }
@@ -20,42 +21,26 @@ namespace RestoreMonarchy.RichMessageAnnouncer
 
         public void LoadDefaults()
         {
-            MessageColor = "yellow";
-            MessageInterval = 180;
-            Messages = new List<Message>()
-            {
-                new Message("Thank You for playing on our server!", "https://i.imgur.com/pKphzxH.png", "yellow"),
-                new Message("Check out RestoreMonarchy.com", "https://i.imgur.com/pKphzxH.png", "yellow")
-            };
-            TextCommands = new List<TextCommand>()
-            {
-                new TextCommand("rules", "Shows rules", "orange", "There's no rules, just chill and have fun!", "https://i.imgur.com/pKphzxH.png")
-            };
-            WebsiteCommands = new List<WebsiteCommand>()
-            {
-                new WebsiteCommand("web", "Shows web url", "https://restoremonarchy.com", "Restore Monarchy Website")
-            };
+            MessageColor = "white";
+            MessageIconUrl = "https://i.imgur.com/tLPIfuf.png";
+            MessageInterval = 300;
+            Messages =
+            [
+                new("Welcome! This server uses {b}RichMessageAnnouncer{/b}.", "https://i.imgur.com/tLPIfuf.png", "white"),
+                new("Use {color=#3498db}/commands{/color} to see available commands!", "https://i.imgur.com/tLPIfuf.png", "white"),
+                new("{size=15}Tip: You can customize these messages in the config.{/size}", "https://i.imgur.com/tLPIfuf.png", "white"),
+                new("Format examples: {b}Bold{/b}, {color=#e74c3c}Color{/color}, {size=20}Size{/size}", "https://i.imgur.com/tLPIfuf.png", "white")
+            ];
+            TextCommands =
+            [
+                new("rules", null, "white", "Server Rules:{br}1. {color=#e74c3c}Be respectful{/color}{br}2. {color=#2ecc71}No cheating{/color}{br}3. {color=#f1c40f}Have fun!{/color}", "https://i.imgur.com/tLPIfuf.png")
+            ];
+            WebsiteCommands =
+            [
+                new("website", null, "https://restoremonarchy.com", "Restore Monarchy Website")
+            ];
             EnableWelcomeMessage = true;
-            WelcomeMessage = new Message("Welcome to the server!", "https://i.imgur.com/pKphzxH.png", "yellow");
+            WelcomeMessage = new Message("{size=18}Welcome to the server!{/size}{br}Rules: {color=#e74c3c}Be respectful{/color} • {color=#2ecc71}No cheating{/color} • {color=#f1c40f}Have fun!{/color}{br}{color=#3498db}Type /commands for commands{/color}", "https://i.imgur.com/tLPIfuf.png", "white");
         }
-    }
-
-    public sealed class Message
-    {
-        public Message(string text, string iconUrl, string color)
-        {
-            Text = text;
-            IconUrl = iconUrl;
-            Color = color;
-        }
-
-        public Message() { }
-
-        [XmlAttribute]
-        public string Text { get; set; }
-        [XmlAttribute]
-        public string IconUrl { get; set; }
-        [XmlAttribute]
-        public string Color { get; set; }
     }
 }

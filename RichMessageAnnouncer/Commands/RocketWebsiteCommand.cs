@@ -1,4 +1,5 @@
 ﻿using Rocket.API;
+using Rocket.Core.Logging;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace RestoreMonarchy.RichMessageAnnouncer.Commands
         {
             if (caller.Id == "Console")
             {
-                UnturnedChat.Say(caller, $"{desc} {url}");
+                Logger.Log($"{desc} {url}");
             } else
             {
                 var player = (UnturnedPlayer)caller;
