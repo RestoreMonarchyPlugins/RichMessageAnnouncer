@@ -113,25 +113,31 @@ namespace RestoreMonarchy.RichMessageAnnouncer
 
         private void OnPlayerConnected(UnturnedPlayer player)
         {
-            if (!Configuration.Instance.EnableWelcomeMessage)
+            if (Configuration.Instance.EnableWelcomeMessage)
             {
-                return;
+                Message msg = Configuration.Instance.WelcomeMessage;
+
+                Color color;
+                if (!string.IsNullOrEmpty(msg.Color))
+                {
+                    color = UnturnedChat.GetColorFromName(msg.Color, MessageColor);
+                }
+                else
+                {
+                    color = MessageColor;
+                }
+                string iconUrl = msg.IconUrl ?? Configuration.Instance.MessageIconUrl;
+                string text = msg.Text.Replace('{', '<').Replace('}', '>');
+                ChatManager.serverSendMessage(text, color, null, player.SteamPlayer(), EChatMode.SAY, iconUrl, true);
             }
 
-            Message msg = Configuration.Instance.WelcomeMessage;
+            if (Configuration.Instance.EnableJoinLink)
+            {
+                string url = Configuration.Instance.JoinLinkUrl;
+                string message = Configuration.Instance.JoinLinkMessage;
 
-            Color color;
-            if (!string.IsNullOrEmpty(msg.Color))
-            {
-                color = UnturnedChat.GetColorFromName(msg.Color, MessageColor);
+                player.Player.sendBrowserRequest(message, url);
             }
-            else
-            {
-                color = MessageColor;
-            }
-            string iconUrl = msg.IconUrl ?? Configuration.Instance.MessageIconUrl;
-            string text = msg.Text.Replace('{', '<').Replace('}', '>');
-            ChatManager.serverSendMessage(text, color, null, player.SteamPlayer(), EChatMode.SAY, iconUrl, true);
         }
 
         internal void SendMessageToPlayer(IRocketPlayer player, string translationKey, object[] placeholder = null, string iconUrl = null, string color = null)

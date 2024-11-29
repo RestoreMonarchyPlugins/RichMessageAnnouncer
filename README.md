@@ -29,11 +29,14 @@ Message announcer, text and web commands with rich text options and icons.
     <WebCommand>
       <Name>website</Name>
       <Url>https://restoremonarchy.com</Url>
-      <Description>Restore Monarchy Website</Description>
+      <Description>Platform for Unturned server owners, players and developers.</Description>
     </WebCommand>
   </WebsiteCommands>
   <EnableWelcomeMessage>true</EnableWelcomeMessage>
   <WelcomeMessage Text="{size=18}Welcome to the server!{/size}{br}Rules: {color=#e74c3c}Be respectful{/color} • {color=#2ecc71}No cheating{/color} • {color=#f1c40f}Have fun!{/color}{br}{color=#3498db}Type /commands for commands{/color}" IconUrl="https://i.imgur.com/tLPIfuf.png" Color="white" />
+  <EnableJoinLink>false</EnableJoinLink>
+  <JoinLinkUrl>https://restoremonarchy.com</JoinLinkUrl>
+  <JoinLinkMessage>Platform for Unturned server owners, players and developers.</JoinLinkMessage>
 </RichMessageAnnouncerConfiguration>
 ```
 
