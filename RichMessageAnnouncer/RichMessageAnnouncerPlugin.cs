@@ -10,7 +10,9 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Timers;
 using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
@@ -31,18 +33,19 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             if (!string.IsNullOrEmpty(Configuration.Instance.MessageColor))
             {
                 MessageColor = UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, Color.green);
-            } else
+            }
+            else
             {
                 MessageColor = Color.green;
             }            
 
-            timer = new Timer(Configuration.Instance.MessageInterval * 1000)
+            timer = new Timer(Math.Max(1, Configuration.Instance.MessageInterval) * 1000)
             {
                 AutoReset = true
             };
             timer.Elapsed += SendMessage;
             timer.Start();
-            
+
             foreach (TextCommand textCommand in Configuration.Instance.TextCommands)
             {
                 RocketTextCommand cmd = new(textCommand);
@@ -69,6 +72,9 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             timer.Enabled = false;
             timer = null;
 
+            index = 0;
+            Messages = null;
+
             Logger.Log($"{Name} has been unloaded!", ConsoleColor.Yellow);
         }
 
@@ -76,39 +82,79 @@ namespace RestoreMonarchy.RichMessageAnnouncer
         {
             { "Commands", "[[b]]Your commands:[[/b]] {0}" }
         };
+        
+        private List<Message> Messages { get; set; }
+        private Message lastMessage;
+        private void ResetMessages()
+        {
+            if (Configuration.Instance.Messages == null || !Configuration.Instance.Messages.Any())
+            {
+                Messages = null;
+                return;
+            }
+
+            List<Message> messagesList = Configuration.Instance.Messages.ToList();
+            if (Configuration.Instance.MessagesShuffle)
+            {
+                System.Random random = new();
+                int n = messagesList.Count;
+                while (n > 1)
+                {
+                    n--;
+                    int k = random.Next(n + 1);
+                    Message temp = messagesList[k];
+                    messagesList[k] = messagesList[n];
+                    messagesList[n] = temp;
+                }
+
+                if (messagesList.Count >= 2 && lastMessage != null)
+                {
+                    if (lastMessage == messagesList[0])
+                    {
+                        Message temp = messagesList[0];
+                        messagesList[0] = messagesList[1];
+                        messagesList[1] = temp;
+                    }
+                }
+            }
+
+            Messages = messagesList;
+        }
 
         private void SendMessage(object sender, ElapsedEventArgs e)
         {
-            if (index >= Configuration.Instance.Messages.Count)
+            TaskDispatcher.QueueOnMainThread(() =>
             {
-                index = 0;
-            }
-
-            Message msg = Configuration.Instance.Messages[index];
-
-            TaskDispatcher.QueueOnMainThread(() => 
-            {
-                if (Provider.clients.Count <= 0) 
+                if (Provider.clients.Count <= 0)
                 {
                     return;
                 }
 
-
-                Color color;
-                if (!string.IsNullOrEmpty(msg.Color))
+                if (index >= (Messages?.Count ?? 0))
                 {
-                    color = UnturnedChat.GetColorFromName(msg.Color, MessageColor);
-                } else
-                {
-                    color = MessageColor;
+                    index = 0;
+                    lastMessage = Messages?.LastOrDefault();
+                    Messages = null;
                 }
-                
+
+                if (Messages == null)
+                {
+                    ResetMessages();
+                    if (Messages.Count == 0)
+                    {
+                        return;
+                    }
+                }
+
+                Message msg = Messages[index];
+                index++;
+
                 string iconUrl = msg.IconUrl ?? Configuration.Instance.MessageIconUrl;
-                string text = msg.Text.Replace('{', '<').Replace('}', '>');
-                ChatManager.serverSendMessage(text, color, null, null, EChatMode.SAY, iconUrl, true);
+                foreach (Player player in PlayerTool.EnumeratePlayers())
+                {
+                    SendMessageToPlayer(UnturnedPlayer.FromPlayer(player), msg.Text, null, iconUrl, msg.Color);
+                }
             });
-            
-            index++;
         }
 
         private void OnPlayerConnected(UnturnedPlayer player)
@@ -116,25 +162,17 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             if (Configuration.Instance.EnableWelcomeMessage)
             {
                 Message msg = Configuration.Instance.WelcomeMessage;
-
-                Color color;
-                if (!string.IsNullOrEmpty(msg.Color))
-                {
-                    color = UnturnedChat.GetColorFromName(msg.Color, MessageColor);
-                }
-                else
-                {
-                    color = MessageColor;
-                }
                 string iconUrl = msg.IconUrl ?? Configuration.Instance.MessageIconUrl;
-                string text = msg.Text.Replace('{', '<').Replace('}', '>');
-                ChatManager.serverSendMessage(text, color, null, player.SteamPlayer(), EChatMode.SAY, iconUrl, true);
+                SendMessageToPlayer(player, msg.Text, null, iconUrl, msg.Color);
             }
 
             if (Configuration.Instance.EnableJoinLink)
             {
                 string url = Configuration.Instance.JoinLinkUrl;
                 string message = Configuration.Instance.JoinLinkMessage;
+
+                ReplaceVariables(ref message, player);
+                ReplaceVariables(ref url, player);
 
                 player.Player.sendBrowserRequest(message, url);
             }
@@ -150,13 +188,16 @@ namespace RestoreMonarchy.RichMessageAnnouncer
                     placeholder = [];
                 }
                 msg = Translate(translationKey, placeholder);
+                ReplaceVariables(ref msg, player);
                 msg = msg.Replace("[[", "<").Replace("]]", ">");
-            } else
+            }
+            else
             {
                 msg = translationKey;
+                ReplaceVariables(ref msg, player);
                 msg = msg.Replace("{", "<").Replace("}", ">");
-            }
-            
+            }            
+
             if (player is ConsolePlayer)
             {
                 msg = msg.Replace("<b>", "").Replace("</b>", "");
@@ -176,6 +217,8 @@ namespace RestoreMonarchy.RichMessageAnnouncer
                 iconUrl = Configuration.Instance.MessageIconUrl;
             }
 
+            ReplaceVariables(ref iconUrl, player);
+
             Color messageColor;
             if (color != null)
             {
@@ -185,8 +228,22 @@ namespace RestoreMonarchy.RichMessageAnnouncer
             {
                 messageColor = MessageColor;
             }
-            
+
             ChatManager.serverSendMessage(msg, messageColor, null, steamPlayer, EChatMode.SAY, iconUrl, true);
+        }
+
+        internal void ReplaceVariables(ref string text, IRocketPlayer player)
+        {
+            text = text
+                .Replace("{player_name}", player?.DisplayName ?? string.Empty)
+                .Replace("{player_id}", player?.Id ?? string.Empty)
+                .Replace("{server_name}", Provider.serverName)
+                .Replace("{server_players}", Provider.clients.Count.ToString("N0"))
+                .Replace("{server_maxplayers}", Provider.maxPlayers.ToString("N0"))
+                .Replace("{server_map}", Level.info?.name ?? string.Empty)
+                .Replace("{server_mode}", Provider.mode.ToString())
+                .Replace("{server_thumbnail}", Provider.configData.Browser.Thumbnail)
+                .Replace("{server_icon}", Provider.configData.Browser.Icon);
         }
     }
 }
