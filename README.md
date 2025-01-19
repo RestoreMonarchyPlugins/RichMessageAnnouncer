@@ -12,6 +12,12 @@ Message announcer, text and web commands with rich text options and icons.
 ## Commands
 - **/commands** - Display a list of commands the player has permission for
 
+## Permissions
+```xml
+<Permission Cooldown="0">commands</Permission>
+```
+Permissions of custom commands are the same as the command name.
+
 ## Variables
 - `{player_name}` - player's display name
 - `{player_id}` - player's steam id
