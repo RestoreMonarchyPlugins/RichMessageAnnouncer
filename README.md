@@ -32,8 +32,6 @@ Permissions of custom commands are the same as the command name.
 ## Rich Text
 - **Bold** - `{b}Bold{/b}`
 - **Italic** - `{i}Italic{/i}`
-- **Underline** - `{u}Underline{/u}`
-- **Strikethrough** - `{s}Strikethrough{/s}`
 - **Color** - `{color=#3498db}Color{/color}`  
 - **Size** - `{size=20}Size{/size}`
 - **Line Break** - `{br}`
