@@ -234,6 +234,11 @@ namespace RestoreMonarchy.RichMessageAnnouncer
 
         internal void ReplaceVariables(ref string text, IRocketPlayer player)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
             text = text
                 .Replace("{player_name}", player?.DisplayName ?? string.Empty)
                 .Replace("{player_id}", player?.Id ?? string.Empty)
